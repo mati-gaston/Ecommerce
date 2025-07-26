@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "title": "Remera Oversize",
+    "description": "Remera de algodón premium",
+    "code": "REM001",
+    "price": 7500,
+    "status": true,
+    "stock": 100,
+    "category": "ropa",
+    "thumbnails": [
+      "images/remera1.png"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Gorra Negra",
+    "description": "Gorra con visera curva",
+    "code": "GOR001",
+    "price": 4500,
+    "status": true,
+    "stock": 50,
+    "category": "accesorios",
+    "thumbnails": [
+      "img/gorra.png"
+    ]
+  }
+]
