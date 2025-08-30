@@ -1,0 +1,11 @@
+<h1 style="text-align: center;">🛍️ Lista de productos (HTTP)</h1>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  {{#each productos}}
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 200px; text-align: center; box-shadow: 2px 2px 5px #aaa;">
+      <img src="{{this.thumbnails.[0]}}" alt="{{this.title}}" style="width: 100%; border-radius: 5px;">
+      <h3>{{this.title}}</h3>
+      <p><strong>${{this.price}}</strong></p>
+    </div>
+  {{/each}}
+</div>

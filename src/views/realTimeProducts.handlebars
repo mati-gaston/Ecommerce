@@ -1,0 +1,60 @@
+<h1 style="text-align: center;">⚡ Lista de productos en tiempo real (WebSocket)</h1>
+
+<!-- Contenedor de productos -->
+<div id="lista-productos" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  {{#each productos}}
+    <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 200px; text-align: center; box-shadow: 2px 2px 5px #aaa;">
+      <img src="{{this.thumbnails.[0]}}" alt="{{this.title}}" style="width: 100%; border-radius: 5px;">
+      <h3>{{this.title}}</h3>
+      <p><strong>${{this.price}}</strong></p>
+      <button onclick="eliminarProducto({{this.id}})" style="margin-top: 10px; background: crimson; color: white; border: none; padding: 6px 12px; border-radius: 5px;">Eliminar</button>
+    </div>
+  {{/each}}
+</div>
+
+<hr>
+
+<h2>Agregar producto</h2>
+<form id="formulario-producto" style="text-align: center;">
+  <input type="text" name="title" placeholder="Título" required />
+  <input type="number" name="price" placeholder="Precio" required />
+  <button type="submit">Agregar</button>
+</form>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io();
+
+  // 🔄 Renderizar productos cuando llegan por WebSocket
+  socket.on('productosActualizados', (productos) => {
+    const lista = document.getElementById('lista-productos');
+    lista.innerHTML = '';
+    productos.forEach(prod => {
+      lista.innerHTML += `
+        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; width: 200px; text-align: center; box-shadow: 2px 2px 5px #aaa;">
+          <img src="${prod.thumbnails?.[0] || ''}" alt="${prod.title}" style="width: 100%; border-radius: 5px;">
+          <h3>${prod.title}</h3>
+          <p><strong>$${prod.price}</strong></p>
+          <button onclick="eliminarProducto(${prod.id})" style="margin-top: 10px; background: crimson; color: white; border: none; padding: 6px 12px; border-radius: 5px;">Eliminar</button>
+        </div>
+      `;
+    });
+  });
+
+  // 🧨 Función para eliminar producto
+  function eliminarProducto(id) {
+    socket.emit('eliminarProducto', id);
+  }
+
+  // ➕ Enviar nuevo producto
+  const formulario = document.getElementById('formulario-producto');
+  formulario.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const datos = {
+      title: formulario.title.value,
+      price: parseFloat(formulario.price.value)
+    };
+    socket.emit('nuevoProducto', datos);
+    formulario.reset();
+  });
+</script>

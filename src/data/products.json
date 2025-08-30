@@ -9,7 +9,7 @@
     "stock": 100,
     "category": "ropa",
     "thumbnails": [
-      "images/remera1.png"
+      "img/remera.jpg"
     ]
   },
   {
@@ -22,7 +22,7 @@
     "stock": 50,
     "category": "accesorios",
     "thumbnails": [
-      "img/gorra.png"
+      "img/gorra.jpg"
     ]
   }
 ]
